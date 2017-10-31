@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{E7600C5C-4584-6AA2-0EBA-3AC72C0BB94E}</ProjectGuid>
+    <ProjectGuid>{664B4A13-B5C9-D186-B5A6-C633D935CD5B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Code\fly.cs" />
+     <Compile Include="Assets\Code\plane.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Program files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
