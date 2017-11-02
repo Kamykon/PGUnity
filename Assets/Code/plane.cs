@@ -6,18 +6,17 @@ using UnityEngine;
 public class plane : MonoBehaviour {
 
     private float startTime;
-    private int numPoints = 500;
+    private int numPoints = 100;
     int flightOrder = 2;
     public float speed = 1f;
 
     GameObject firstAirport;
-    GameObject secondAirport;
     GameObject thirdAirport;
     GameObject fourthAirport;
-    GameObject planeg;
 
     Vector3 firstAirportPosition;
     Vector3 secondAirportPosition;
+    Vector3 airportPosition;
 
     Vector3 firstAirportBoxColliderPosition;
     Vector3 secondAirportBoxColliderPosition;
@@ -25,51 +24,96 @@ public class plane : MonoBehaviour {
     Vector3 center;
     Vector3 start;
     Vector3 finish;
+
+    Vector3 touchPosWorld;
     // Use this for initialization
     void Start () {
         startTime = Time.time;
         firstAirport = GameObject.Find("lotnisko1");
-        secondAirport = GameObject.Find("lotnisko2");
         thirdAirport = GameObject.Find("lotnisko3");
         fourthAirport = GameObject.Find("lotnisko4");
-        planeg = GameObject.Find("New Sprite");
         if (flightOrder == 1)
         {
-           oneToTwo();
+            oneToTwo();
         }
         if (flightOrder == 2)
         {
-           twoToThree();
+        //    twoToThree();
         }
         if (flightOrder == 3)
         {
             threeToFour();
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-      
+
+    // Update is called once per frame
+    TouchPhase touchPhase = TouchPhase.Ended;
+
+    void Update()
+    {
+        //We check if we have more than one touch happening.
+        //We also check if the first touches phase is Ended (that the finger was lifted)
+        //if (Input.touchCount > 0 && Input.GetTouch(0).phase == touchPhase)
+            if (Input.GetMouseButtonDown(0))
+            {
+            //We transform the touch position into word space from screen space and store it.
+			touchPosWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            Vector2 touchPosWorld2D = new Vector2(touchPosWorld.x, touchPosWorld.y);
+
+            //We now raycast with this information. If we have hit something we can process it.
+            RaycastHit2D hitInformation = Physics2D.Raycast(touchPosWorld2D, Camera.main.transform.forward);
+
+            if (hitInformation.collider != null)
+            {
+                //We should have hit something with a 2D Physics collider!
+                GameObject touchedObject = hitInformation.transform.gameObject;
+                
+                switch (touchedObject.transform.name)
+                {
+                    case "lotnisko1":
+                        goToFirstAirport();
+                        break;
+                    case "lotnisko3":
+                        goToThirdAirport();
+                        break;
+                    case "lotnisko4":
+                        goToFourthAirport();
+                        break;
+                }
+            }
+        }
     }
 
     void oneToTwo()
     {
         firstAirportPosition = firstAirport.transform.position;
-        secondAirportPosition = secondAirport.transform.position;
         Vector3[] positions = getBezier(firstAirportPosition, firstAirportPosition + new Vector3(3f, -11f, 0), secondAirportPosition - new Vector3(11f, 0f, 0f), secondAirportPosition);
         StartCoroutine(movePlane(positions));
-        if (transform.position == secondAirportPosition)
-        {
-            flightOrder = 2;
-            startTime = Time.time;
-        }
+        //if (transform.position == secondAirportPosition)
+        //{
+        //    flightOrder = 2;
+        //    startTime = Time.time;
+        //}
     }
 
-    void twoToThree()
+    void goToFourthAirport()
     {
-        firstAirportPosition = secondAirport.transform.position;
-        secondAirportPosition = fourthAirport.transform.position;
-        Vector3[] positions = getBezier(firstAirportPosition, firstAirportPosition - new Vector3(18f, 0, 0), secondAirportPosition - new Vector3(22f, 0f, 0f), secondAirportPosition);
+        airportPosition = fourthAirport.transform.position;
+        Vector3[] positions = getBezier(transform.position, transform.position - new Vector3(18f, 0, 0), airportPosition - new Vector3(22f, 0f, 0f), airportPosition);
+        StartCoroutine(movePlane(positions));
+    }
+    void goToThirdAirport()
+    {
+        airportPosition = thirdAirport.transform.position;
+        Vector3[] positions = getBezier(transform.position, transform.position - new Vector3(0, 8f, 0), airportPosition + new Vector3(9f, 0f, 0f), airportPosition);
+        StartCoroutine(movePlane(positions));
+    }
+
+    void goToFirstAirport()
+    {
+        airportPosition = firstAirport.transform.position;
+        Vector3[] positions = getBezier(transform.position, transform.position - new Vector3(4, 8f, 0), airportPosition + new Vector3(13f, 0f, 0f), airportPosition);
         StartCoroutine(movePlane(positions));
     }
 
@@ -89,7 +133,7 @@ public class plane : MonoBehaviour {
         secondAirportPosition = fourthAirport.transform.position;
         firstAirportBoxColliderPosition = thirdAirport.GetComponent<BoxCollider2D>().bounds.max;
         secondAirportBoxColliderPosition = fourthAirport.GetComponent<BoxCollider2D>().bounds.min;
-        secondAirportBoxColliderPosition += new Vector3(0, secondAirport.GetComponent<BoxCollider2D>().bounds.size.y / 2, 0);
+        //secondAirportBoxColliderPosition += new Vector3(0, secondAirport.GetComponent<BoxCollider2D>().bounds.size.y / 2, 0);
         Vector3 center = (firstAirportPosition + secondAirportPosition);
         float fracComplete = (Time.time - startTime) / 2;
         Vector3 start = firstAirportPosition - center;
