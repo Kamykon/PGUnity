@@ -39,7 +39,6 @@ public class plane : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        GetComponent<BoxCollider2D>().size = GetComponent<SpriteRenderer>().bounds.size;
         startTime = Time.time;
         firstAirport = GameObject.Find("lotnisko1");
         secondAirport = GameObject.Find("lotnisko2");
