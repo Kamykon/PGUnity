@@ -6,7 +6,6 @@ public class generateAndFly : MonoBehaviour {
 
     // Use this for initialization
     float speed = 2.0f;
-    List<PlaneData> planes = new List<PlaneData>();
 
     void Start () {
         
@@ -16,9 +15,9 @@ public class generateAndFly : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        for(int i = 0; i < planes.Count; i++)
+        for(int i = 0; i < Main.Instance.planes.Count; i++)
         {
-            move(planes[i]);
+            move(Main.Instance.planes[i]);
         }
     }
 
@@ -61,17 +60,17 @@ public class generateAndFly : MonoBehaviour {
     {
         while (true)
         {
-            if(planes.Count == 0)
+            if(Main.Instance.planes.Count == 0)
             {
                 PlaneData plane = new PlaneData();
                 plane.plane = GameObject.Find("plane");
-                planes.Add(plane);
-                setStartingPosition(planes[0]);
+                Main.Instance.planes.Add(plane);
+                setStartingPosition(Main.Instance.planes[0]);
             }
             else
             {
-                planes.Add(generatePlanes());
-                setStartingPosition(planes[planes.Count - 1]);
+                Main.Instance.planes.Add(generatePlanes());
+                setStartingPosition(Main.Instance.planes[Main.Instance.planes.Count - 1]);
             }
             yield return new WaitForSeconds(3);
         }
