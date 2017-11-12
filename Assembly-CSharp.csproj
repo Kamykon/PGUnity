@@ -53,6 +53,7 @@
   <ItemGroup>
      <Compile Include="Assets\Code\bounds.cs" />
      <Compile Include="Assets\Code\direction.cs" />
+     <Compile Include="Assets\Code\generate.cs" />
      <Compile Include="Assets\Code\generateAndFly.cs" />
      <Compile Include="Assets\Code\Main.cs" />
      <Compile Include="Assets\Code\plane.cs" />

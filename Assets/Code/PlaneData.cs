@@ -6,8 +6,7 @@ public class PlaneData
 {
 
     public GameObject plane;
-    public float x;
-    public float y;
-    public float dirx;
-    public float diry;
+    public Vector2 startPosition;
+    public Vector2 destinationPosition;
+    public bool startMovement = true;
 }

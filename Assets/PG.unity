@@ -214,7 +214,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 231277709}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29bd40e491f98794893ca28ba76693c8, type: 3}
+  m_Script: {fileID: 11500000, guid: c0a70cb2222c7ed449f3e8476d9dc322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &775250550
@@ -323,7 +323,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 775250550}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29bd40e491f98794893ca28ba76693c8, type: 3}
+  m_Script: {fileID: 11500000, guid: c0a70cb2222c7ed449f3e8476d9dc322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &794975077
@@ -521,7 +521,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 878609079}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29bd40e491f98794893ca28ba76693c8, type: 3}
+  m_Script: {fileID: 11500000, guid: c0a70cb2222c7ed449f3e8476d9dc322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1461795131
@@ -630,7 +630,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1461795131}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29bd40e491f98794893ca28ba76693c8, type: 3}
+  m_Script: {fileID: 11500000, guid: c0a70cb2222c7ed449f3e8476d9dc322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2028774154
@@ -642,9 +642,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2028774155}
   - component: {fileID: 2028774157}
-  - component: {fileID: 2028774156}
   - component: {fileID: 2028774158}
   - component: {fileID: 2028774159}
+  - component: {fileID: 2028774156}
   m_Layer: 0
   m_Name: plane
   m_TagString: Untagged
@@ -673,7 +673,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2028774154}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98ba0bbc967a90348ac6780618038aba, type: 3}
+  m_Script: {fileID: 11500000, guid: 8df6a63ad1029fa49b3f4c4105e2f91c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
@@ -752,7 +752,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2028774154}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29bd40e491f98794893ca28ba76693c8, type: 3}
+  m_Script: {fileID: 11500000, guid: c0a70cb2222c7ed449f3e8476d9dc322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2114853503
@@ -763,8 +763,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2114853505}
-  - component: {fileID: 2114853504}
   - component: {fileID: 2114853506}
+  - component: {fileID: 2114853504}
+  - component: {fileID: 2114853507}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -780,7 +781,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2114853503}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b092c86384123f8419fc851177a64178, type: 3}
+  m_Script: {fileID: 11500000, guid: ea3e10e9f7497c2499afd71452bfc94c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &2114853505
@@ -807,3 +808,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a506f88773e6054680a0bab3bd69c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &2114853507
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2114853503}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
