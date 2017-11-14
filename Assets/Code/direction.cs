@@ -15,22 +15,12 @@ public class direction : MonoBehaviour {
     float width;
     float height;
 
-    GameObject firstAirport;
-    GameObject secondAirport;
-    GameObject thirdAirport;
-    GameObject fourthAirport;
+    AirportData firstAirport;
+    AirportData secondAirport;
+    AirportData thirdAirport;
+    AirportData fourthAirport;
 
-    Vector3 firstAirportPosition;
-    Vector3 secondAirportPosition;
     Vector3 airportPosition;
-
-    Vector3 firstAirportBoxColliderPosition;
-    Vector3 secondAirportBoxColliderPosition;
-
-    Vector3 center;
-    Vector3 start;
-    Vector3 finish;
-
 
     PlaneData plane;
 
@@ -40,13 +30,11 @@ public class direction : MonoBehaviour {
         plane = new PlaneData();
         plane.plane = transform.gameObject;
         Main.Instance.planes.Add(plane);
+        firstAirport = Main.Instance.airports[0];
+        secondAirport = Main.Instance.airports[1];
+        thirdAirport = Main.Instance.airports[2];
+        fourthAirport = Main.Instance.airports[3];
         setStartingPosition(plane);
-
-
-        firstAirport = GameObject.Find("lotnisko1");
-        secondAirport = GameObject.Find("lotnisko2");
-        thirdAirport = GameObject.Find("lotnisko3");
-        fourthAirport = GameObject.Find("lotnisko4");
         width = Camera.main.orthographicSize * Screen.width / Screen.height;
         height = Camera.main.orthographicSize;
     }
@@ -98,119 +86,115 @@ public class direction : MonoBehaviour {
             }
         }
     }
-    void flyToTheAirport(GameObject airport)
+    void flyToTheAirport(AirportData airport)
     {
         int planeQuarter = getPlainQuarter();
         int airportQuarter = getAirportQuarter();
-        print(planeQuarter);
-        print(airportQuarter);
         touchCounter++;
         //if (transform.position.Equals(airport.transform.position)) {
         //	touchCounter = 0;
         //}
-        if (planeQuarter == airportQuarter)
-            landOnTheSameQuarter(airport);
-        switch (planeQuarter)
+        print(airport.landedPLanesCounter);
+        if(airport.canLand())
         {
-            case 1:
-                switch (airportQuarter)
-                {
-                    case 2:
-                        landOnTheQuarterNextToYou(airport);
-                        break;
-                    case 3:
-                        landOnTheQuarterInAnotherCorner(airport);
-                        break;
-                    case 4:
-                        landOnTheQuarterUnderOrAboveYours(airport);
-                        break;
-                }
-                break;
-            case 2:
-                switch (airportQuarter)
-                {
-                    case 1:
-                        landOnTheQuarterNextToYou(airport);
-                        break;
-                    case 3:
-                        landOnTheQuarterUnderOrAboveYours(airport);
-                        break;
-                    case 4:
-                        landOnTheQuarterInAnotherCorner(airport);
-                        break;
-                }
-                break;
-            case 3:
-                switch (airportQuarter)
-                {
-                    case 1:
-                        landOnTheQuarterInAnotherCorner(airport);
-                        break;
-                    case 2:
-                        landOnTheQuarterUnderOrAboveYours(airport);
-                        break;
-                    case 4:
-                        landOnTheQuarterNextToYou(airport);
-                        break;
-                }
-                break;
-            case 4:
-                switch (airportQuarter)
-                {
-                    case 1:
-                        landOnTheQuarterUnderOrAboveYours(airport);
-                        break;
-                    case 2:
-                        landOnTheQuarterInAnotherCorner(airport);
-                        break;
-                    case 3:
-                        landOnTheQuarterNextToYou(airport);
-                        break;
-                }
-                break;
+            if (planeQuarter == airportQuarter)
+                landOnTheSameQuarter(airport);
+            switch (planeQuarter)
+            {
+                case 1:
+                    switch (airportQuarter)
+                    {
+                        case 2:
+                            landOnTheQuarterNextToYou(airport);
+                            break;
+                        case 3:
+                            landOnTheQuarterInAnotherCorner(airport);
+                            break;
+                        case 4:
+                            landOnTheQuarterUnderOrAboveYours(airport);
+                            break;
+                    }
+                    break;
+                case 2:
+                    switch (airportQuarter)
+                    {
+                        case 1:
+                            landOnTheQuarterNextToYou(airport);
+                            break;
+                        case 3:
+                            landOnTheQuarterUnderOrAboveYours(airport);
+                            break;
+                        case 4:
+                            landOnTheQuarterInAnotherCorner(airport);
+                            break;
+                    }
+                    break;
+                case 3:
+                    switch (airportQuarter)
+                    {
+                        case 1:
+                            landOnTheQuarterInAnotherCorner(airport);
+                            break;
+                        case 2:
+                            landOnTheQuarterUnderOrAboveYours(airport);
+                            break;
+                        case 4:
+                            landOnTheQuarterNextToYou(airport);
+                            break;
+                    }
+                    break;
+                case 4:
+                    switch (airportQuarter)
+                    {
+                        case 1:
+                            landOnTheQuarterUnderOrAboveYours(airport);
+                            break;
+                        case 2:
+                            landOnTheQuarterInAnotherCorner(airport);
+                            break;
+                        case 3:
+                            landOnTheQuarterNextToYou(airport);
+                            break;
+                    }
+                    break;
+            }
         }
     }
-    void oneToTwo()
+    void landOnTheSameQuarter(AirportData airport)
     {
-        firstAirportPosition = firstAirport.transform.position;
-        Vector3[] positions = getBezier(firstAirportPosition, firstAirportPosition + new Vector3(3f, -11f, 0), secondAirportPosition - new Vector3(11f, 0f, 0f), secondAirportPosition);
-        StartCoroutine(movePlane(positions));
-    }
-    void landOnTheSameQuarter(GameObject airport)
-    {
-        airportPosition = airport.transform.position;
+        airportPosition = airport.position;
         Vector3 firstPoint = new Vector3(xAxis * (-width), yAxis * (-(height + 7)), 0);
         Vector3 secondPoint = new Vector3(xAxis * (-(width + 7)), airportPosition.y, 0);
         Vector3[] positions = getBezier(transform.position, firstPoint, secondPoint, airportPosition);
-        StartCoroutine(movePlane(positions));
+        StartCoroutine(movePlane(positions, airport));
     }
-    void landOnTheQuarterUnderOrAboveYours(GameObject airport)
+    void landOnTheQuarterUnderOrAboveYours(AirportData airport)
     {
-        airportPosition = airport.transform.position;
+        airportPosition = airport.position;
         Vector3 firstPoint = new Vector3(xAxis * (-(width + 1)), airportPosition.y, 0);
         Vector3 secondPoint = new Vector3(xAxis * (-(width + 6)), airportPosition.y, 0);
         Vector3[] positions = getBezier(transform.position, firstPoint, secondPoint, airportPosition);
-        StartCoroutine(movePlane(positions));
+        StartCoroutine(movePlane(positions, airport));
     }
-    void landOnTheQuarterInAnotherCorner(GameObject airport)
+    void landOnTheQuarterInAnotherCorner(AirportData airport)
     {
-        airportPosition = airport.transform.position;
+        airportPosition = airport.position;
         Vector3 firstPoint = new Vector3(transform.position.x, airportPosition.y, 0);
         Vector3 secondPoint = new Vector3(transform.position.x - (xAxis * 3), airportPosition.y, 0);
         Vector3[] positions = getBezier(transform.position, firstPoint, secondPoint, airportPosition);
-        StartCoroutine(movePlane(positions));
+        StartCoroutine(movePlane(positions, airport));
     }
 
-    void landOnTheQuarterNextToYou(GameObject airport)
+    void landOnTheQuarterNextToYou(AirportData airport)
     {
-        airportPosition = airport.transform.position;
+        airportPosition = airport.position;
         Vector3 firstPoint = new Vector3(transform.position.x - (xAxis * 6), airportPosition.y, 0);
         Vector3 secondPoint = new Vector3(transform.position.x - (xAxis * 6), yAxis * (-(height + 2)), 0);
         Vector3[] positions = getBezier(transform.position, firstPoint, secondPoint, airportPosition);
-        StartCoroutine(movePlane(positions));
+        StartCoroutine(movePlane(positions, airport));
     }
 
-    private IEnumerator movePlane(Vector3[] positions)
+    private IEnumerator movePlane(Vector3[] positions, AirportData airport)
     {
         for (int i = 0; i < numPoints; i++)
         {
@@ -219,6 +203,8 @@ public class direction : MonoBehaviour {
             transform.position = positions[i];
             yield return new WaitForSeconds(step);
         }
+        airport.landedPLanesCounter++;
+        Destroy(this.gameObject);
     }
 
     private Vector3[] getBezier(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3)

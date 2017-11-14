@@ -8,6 +8,8 @@ public class Main : MonoBehaviour {
 
     public List<PlaneData> planes = new List<PlaneData>();
 
+    public List<AirportData> airports = new List<AirportData>();
+
     private void Awake()
     {
         if(Instance == null)

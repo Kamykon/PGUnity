@@ -8,7 +8,6 @@ public class generateAndFly : MonoBehaviour {
     float speed = 2.0f;
 
     void Start () {
-        
         StartCoroutine(startPlanes());
     }
 	
